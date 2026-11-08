@@ -1,18 +1,23 @@
 # OS junk
 .DS_Store
 
-# Dependencies
-node_modules/
-
-# Environment
-.env
-.env.*
-
 # Python
 __pycache__/
 *.pyc
-.venv/
 
 # Runtime state
-.memory/
-*.log
+.claude/md-log/state/
+.claude/settings.local.json
+/viz/.work/
+
+# Obsidian per-device workspace state
+.obsidian/workspace*.json
+
+# Personal learning data — keep out of any shared/public repo
+/learner/
+/lessons/
+/facts/
+/practice/
+/viz/
+/learn-whatever/
+.claude/practice/state/

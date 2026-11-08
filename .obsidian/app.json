@@ -1,0 +1,5 @@
+{
+  "attachmentFolderPath": "viz",
+  "userIgnoreFilters": ["setup/"],
+  "alwaysUpdateLinks": true
+}

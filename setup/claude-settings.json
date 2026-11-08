@@ -1,0 +1,90 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 .claude/visual-tools/render.py:*)",
+      "Bash(python3 .claude/md-log/md_log.py:*)",
+      "Write(viz/.work/**)",
+      "Edit(viz/.work/**)",
+      "WebSearch",
+      "WebFetch",
+      "Bash(python3 .claude/review/srs.py:*)",
+      "Bash(ls learner*)",
+      "Write(learner/**)",
+      "Edit(learner/**)",
+      "Write(facts/**)",
+      "Edit(facts/**)",
+      "Bash(python3 .claude/practice/drill.py:*)",
+      "Write(practice/**)",
+      "Edit(practice/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/md-log/md_log.py\" hook",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/practice/drill.py\" mark",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/md-log/md_log.py\" hook",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/md-log/md_log.py\" hook",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/review/srs.py\" due --summary",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/practice/drill.py\" mark",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
